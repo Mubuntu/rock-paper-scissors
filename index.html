@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rock Paper Scissors!</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+</body>
+<script>
+    //  randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’
+    function computerPlay() {
+        // generate a number between 0-2
+        let numChoice = Math.floor(Math.random() * 3);
+        let choice;
+        switch (numChoice) {
+            case 0:
+                choice = 'rock';
+                break;
+            case 1:
+                choice = 'paper';
+                break;
+            case 2:
+                choice = 'scissors';
+                break;
+            default:
+                choice = 'something went wrong';break;
+        }
+        return choice;
+    }
+
+    function playerPlay() {
+        let playersChoice;
+        // do {
+           playerChoice = prompt('pick your poison! (Rock Paper or Scissors)');
+
+        // } while (!(playerChoice.toLowerCase() === 'rock' || playerChoice.toLowerCase() === 'paper' || playerChoice.toLowerCase() ===
+        //         'scissors'))
+        return playerChoice;
+    }
+
+
+    // function that plays a single round of Rock Paper Scissors.
+    // two parameters - the playerSelection and computerSelection 
+    // and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+    function playRound(playerSelection, computerSelection) {
+        let winner;
+        if ((playerSelection.toLowerCase() == 'rock' && computerSelection.toLowerCase() == 'paper') ||
+            (playerSelection.toLowerCase() == 'paper' && computerSelection.toLowerCase() == 'scissors') ||
+            (playerSelection.toLowerCase() == 'scissors' && computerSelection.toLowerCase() == 'rock')) {
+            winner = `You lose! ${computerSelection} beats ${playerSelection}`;
+        } else if ((playerSelection.toLowerCase() == 'rock' && computerSelection.toLowerCase() == 'scissors') ||
+            (playerSelection.toLowerCase() == 'paper' && computerSelection.toLowerCase() == 'rock') ||
+            (playerSelection.toLowerCase() == 'scissors' && computerSelection.toLowerCase() == 'paper')) {
+            winner = `You win! you played ${playerSelection} adn that beats beats ${computerSelection}`;
+        } else {
+            winner = `it's a draw ${playerSelection} && ${computerSelection}`;
+        }
+        return winner;
+    }
+    // const playerChoice = 'rock';
+    // const computerChoice = computerPlay();
+    // const whoWillWin = playRound(playerChoice, computerChoice);
+    // console.log(whoWillWin);
+
+    function game() {
+        let score = 0,
+            aiScore = 0;
+        let it = 0;
+        while (it < 5) {
+            let result = playRound(playerPlay(), computerPlay());
+            if (result.includes('win')) {
+                score++;
+            } else if (result.includes('lose')) {
+                aiScore++;
+            }
+            console.log(`Round ${it+1}`)
+            console.log(result);
+            console.log(`your score: ${score} : AI score: ${aiScore}`);
+            it++;
+        }
+    }
+    game();
+</script>
+
+</html>
