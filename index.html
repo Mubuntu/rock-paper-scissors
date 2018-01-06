@@ -37,19 +37,24 @@
                 choice = 'scissors';
                 break;
             default:
-                choice = 'something went wrong';break;
+                choice = 'something went wrong';
+                break;
         }
         return choice;
     }
 
     function playerPlay() {
-        let playersChoice;
-        // do {
-           playerChoice = prompt('pick your poison! (Rock Paper or Scissors)');
+        let playersChoice, tries = 0;
+        do {
+            if (tries >1) {
+                alert("mismatched input. try again",'rock');
+            }
+            playersChoice = prompt('pick your poison! (Rock Paper or Scissors) ');
+            tries++;
 
-        // } while (!(playerChoice.toLowerCase() === 'rock' || playerChoice.toLowerCase() === 'paper' || playerChoice.toLowerCase() ===
-        //         'scissors'))
-        return playerChoice;
+        } while (!(playersChoice.toLowerCase() === 'rock' || playersChoice.toLowerCase() === 'paper' || playersChoice.toLowerCase() ===
+                'scissors'))
+        return playersChoice;
     }
 
 
@@ -71,21 +76,21 @@
         }
         return winner;
     }
-    // const playerChoice = 'rock';
-    // const computerChoice = computerPlay();
-    // const whoWillWin = playRound(playerChoice, computerChoice);
-    // console.log(whoWillWin);
 
     function game() {
-        let score = 0,
+        let score = 0, upperLimit=5
             aiScore = 0;
         let it = 0;
-        while (it < 5) {
+        while (it < upperLimit) {
             let result = playRound(playerPlay(), computerPlay());
             if (result.includes('win')) {
                 score++;
             } else if (result.includes('lose')) {
                 aiScore++;
+            }
+            // add 2 bonus rounds when opponents are drawn in last round
+            else if(it>=3 && score==aiScore){
+                upperLimit+=2;                
             }
             console.log(`Round ${it+1}`)
             console.log(result);
